@@ -35,8 +35,10 @@ function* fetchThisMovie(action) {
     console.log('in fetchThisMovie saga');
     try {
         const history = useHistory();
-        const movieResponse = yield axios.get(`/api/movie/${action.payload}`);
-        yield put({type: 'SET_MOVIE_DETAILS'}); // add reducer with this action type
+        const movieResponse = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
+        yield put({type: 'SET_MOVIE_DETAILS', payload: movieResponse.data}); // add reducer with this action type
+        const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
+        yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
         // history.push('/details');
     } catch (error) {
         console.log('error in fetchThisMovie', error);

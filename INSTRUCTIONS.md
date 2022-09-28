@@ -51,6 +51,7 @@ This view is completed already! It displays all of the movies in the movie datab
 - [x] create onClick within image tag in MovieItem that passed the selected movie's ID
 - [] history.push to Details will happen in the saga after a successful get of the selected movie's info from the DB
 - [] onClick function will dispatch action to a saga to GET the selected movie's info based on movie id passed to function
+- [] fetchThisMovie saga with have two get requests, one for movie info and one for genres
 - [] the info from the saga GET request will be put to a reducer(s)
 - [] the updated value of the reducer(s) will be displayed on the Details DOM for the selected movie
 

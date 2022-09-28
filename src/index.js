@@ -10,7 +10,6 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
-import {useHistory} from 'react-router-dom';
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -34,15 +33,14 @@ function* fetchAllMovies() {
 function* fetchThisMovie(action) {
     console.log('in fetchThisMovie saga');
     try {
-        const history = useHistory();
         const movieResponse = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_DETAILS', payload: movieResponse.data}); // add reducer with this action type
         const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
-        // history.push('/details');
+        action.toDetails();
     } catch (error) {
         console.log('error in fetchThisMovie', error);
-        alert('Something went wrong displaying movie details.');
+        alert('Something went wrong getting movie details and genres.');
     }
 } // end fetchThisMovie
 

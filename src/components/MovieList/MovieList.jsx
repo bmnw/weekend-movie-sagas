@@ -13,10 +13,6 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
 
-    const handleClick = (inputID) => {
-        console.log('in handleClick', inputID);
-    } // end handleClick
-
     return (
         <main>
             <h1>MovieList</h1>
@@ -26,6 +22,7 @@ function MovieList() {
                         
                             <MovieItem 
                                 movie={movie}
+                                key={movie.id}
                             />
                        
                     );

@@ -21,7 +21,7 @@ function MovieList() {
                 <Grid container spacing={2}>
                     {movies.map(movie => {
                         return (
-                            <Grid item xs={3}>
+                            <Grid item xs={6} md={4} lg={3}>
                                 <MovieItem 
                                     movie={movie}
                                     key={movie.id}

@@ -6,10 +6,20 @@ const Details = () => {
     const genres = useSelector(store => store.movieGenres);
     const movieDetails = useSelector(store => store.movieDetails);
 
-    return  <> 
+    return  <div> 
+                
+                    {movieDetails.map(detail => {
+                        return  <div key={detail.id}>
+                                    {detail.title}
+                                    <br />
+                                    {detail.description}       
+                                    <br />
+                                    <img src={detail.poster} />                
+                                </div>
+                    })}
                 
                 
-            </>
+            </div>
 } // end Details
 
 export default Details;

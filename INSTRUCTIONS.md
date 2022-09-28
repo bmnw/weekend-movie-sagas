@@ -49,17 +49,17 @@ This view is completed already! It displays all of the movies in the movie datab
 - [x] create `/details` route and Details componenet folder and file
 - [x] create MovieItem component to hold each movie title and image displayed on home page
 - [x] create onClick within image tag in MovieItem that passed the selected movie's ID
-- [] history.push to Details will happen in the saga after a successful get of the selected movie's info from the DB
-- [] onClick function will dispatch action to a saga to GET the selected movie's info based on movie id passed to function
-- [] fetchThisMovie saga with have two get requests, one for movie info and one for genres
-- [] the info from the saga GET request will be put to a reducer(s)
-- [] the updated value of the reducer(s) will be displayed on the Details DOM for the selected movie
+- [x] history.push to Details will happen in the saga after a successful get of the selected movie's info from the DB
+- [x] onClick function will dispatch action to a saga to GET the selected movie's info based on movie id passed to function
+- [x] fetchThisMovie saga with have two get requests, one for movie info and one for genres
+- [x] the info from the saga GET request will be put to a reducer(s)
+- [x] the updated value of the reducer(s) will be displayed on the Details DOM for the selected movie
 
 ### Details Page
 
 This should show all details **including ALL genres** for the selected movie, including title, description, and the image, too! Use Sagas and Redux to handle these requests and data.
 
-- TODO: The details page should have a `Back to List` button, which should bring the user to the Home/List Page
+- [x] TODO: The details page should have a `Back to List` button, which should bring the user to the Home/List Page
 
 > Base functionality does not require the movie details to load correctly after refresh of the browser.
 

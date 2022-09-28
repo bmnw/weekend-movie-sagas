@@ -5,7 +5,6 @@ import {useHistory} from 'react-router-dom';
 const MovieItem = ({movie}) => {
 
     const dispatch = useDispatch();
-    const movies = useSelector(store => store.movies);
     const history = useHistory();
 
     const toDetails = () => {

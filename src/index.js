@@ -33,11 +33,11 @@ function* fetchAllMovies() {
 function* fetchThisMovie(action) {
     console.log('in fetchThisMovie saga');
     try {
-        const movieResponse = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
-        yield put({type: 'SET_MOVIE_DETAILS', payload: movieResponse.data}); // add reducer with this action type
+        const movieDetails = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
+        yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data}); // add reducer with this action type
         const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
-        action.toDetails();
+        action.toDetails(); // moving user to selected movie Details after successful GET requests
     } catch (error) {
         console.log('error in fetchThisMovie', error);
         alert('Something went wrong getting movie details and genres.');

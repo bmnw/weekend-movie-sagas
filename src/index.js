@@ -59,6 +59,14 @@ const movieDetails = (state = [], action) => {
     return state;
 } // end movieDetails
 
+const movieGenres = (state = [], action) => {
+    console.log('movieGenres reducer');
+    if(action.type === 'SET_MOVIE_GENRES'){
+        return action.payload;
+    }
+    return state
+} // end movieGenres
+
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
@@ -83,7 +91,8 @@ const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
-        movieDetails
+        movieDetails,
+        movieGenres
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

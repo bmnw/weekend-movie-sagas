@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
+import './MovieItem.css';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { CardActionArea } from '@mui/material';
 
 const MovieItem = ({movie}) => {
 
@@ -18,10 +25,19 @@ const MovieItem = ({movie}) => {
     } // end handleClick
 
     return  <>
-                <div>
-                    <h3>{movie.title}</h3>
-                    <img src={movie.poster} alt={movie.title} onClick={(event) => handleClick(movie.id)}/>
-                </div>
+                <Card elevation={10} onClick={(event) => handleClick(movie.id)}>
+                    <CardActionArea sx={{bgcolor: 'lightgray'}}>
+                        <CardMedia 
+                            component="img"
+                            image={movie.poster}
+                            alt={movie.title}
+                            height="400"
+                        />
+                        <CardContent>
+                            <Typography>{movie.title}</Typography>
+                        </CardContent>
+                    </CardActionArea>
+                </Card>
             </>
 
 } // end MovieItem

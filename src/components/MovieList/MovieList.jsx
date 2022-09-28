@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
+import MovieItem from '../MovieItem/MovieItem.jsx'
 
 function MovieList() {
 
     const dispatch = useDispatch();
     const movies = useSelector(store => store.movies);
+    const [movieId, setMovieId] = useState('')
 
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []);
+
+    const handleClick = (inputID) => {
+        console.log('in handleClick', inputID);
+    } // end handleClick
 
     return (
         <main>
@@ -17,10 +23,11 @@ function MovieList() {
             <section className="movies">
                 {movies.map(movie => {
                     return (
-                        <div key={movie.id} >
-                            <h3>{movie.title}</h3>
-                            <img src={movie.poster} alt={movie.title}/>
-                        </div>
+                        
+                            <MovieItem 
+                                movie={movie}
+                            />
+                       
                     );
                 })}
             </section>

@@ -46,6 +46,14 @@ This view is completed already! It displays all of the movies in the movie datab
 
 - TODO: When a movie poster is clicked, a user should be brought to the `/details` view for that movie.
 
+- [x] create `/details` route and Details componenet folder and file
+- [x] create MovieItem component to hold each movie title and image displayed on home page
+- [x] create onClick within image tag in MovieItem that passed the selected movie's ID
+- [] history.push to Details will happen in the saga after a successful get of the selected movie's info from the DB
+- [] onClick function will dispatch action to a saga to GET the selected movie's info based on movie id passed to function
+- [] the info from the saga GET request will be put to a reducer(s)
+- [] the updated value of the reducer(s) will be displayed on the Details DOM for the selected movie
+
 ### Details Page
 
 This should show all details **including ALL genres** for the selected movie, including title, description, and the image, too! Use Sagas and Redux to handle these requests and data.

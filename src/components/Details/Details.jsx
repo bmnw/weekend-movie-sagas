@@ -26,7 +26,7 @@ const Details = () => {
                                             })}
                                     </div>
                                     <div style={{width: 700}}>
-                                        <Typography variant="h5" sx={{textAlign: 'left'}}> {detail.description} </Typography>    
+                                        <Typography variant="h5" sx={{textAlign: 'justify'}}> {detail.description} </Typography>    
                                     </div>  
                                 </div>
                     })}

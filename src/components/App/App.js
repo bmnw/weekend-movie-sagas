@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="App">
       <Paper elevation={5} sx={{padding: 2}}>
-        <Typography variant="h2">The Movies Saga!</Typography>
+        <Typography variant="h2">🎬 Blockduster 🧹</Typography>
       </Paper>
       <Router>        
         <Route path="/" exact>

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import './Details.css';
+import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 
 const Details = () => {
 
@@ -9,28 +12,28 @@ const Details = () => {
     const genres = useSelector(store => store.movieGenres);
     const movieDetails = useSelector(store => store.movieDetails);
 
-    return  <div className="movie-info"> 
+    return  <Paper className="movie-info" elevation={10}> 
                 
                     {movieDetails.map(detail => {
                         return  <div style={{display: "flex", justifyContent: "space-between"}} key={detail.id}>
                                     <div>
-                                        <img src={detail.poster} />     
+                                        <img src={detail.poster} style={{width: 268, height: 395}} />     
                                     </div>
-                                    <div>
-                                        <h2>{detail.title}</h2>
+                                    <div style={{maxWidth: 300}}>
+                                        <Typography variant="h2">{detail.title}</Typography>
                                             {genres.map(genre => {
-                                                return  <h4 key={genre.id}>{genre.name}</h4>
+                                                return  <Typography variant="h6" key={genre.id}>{genre.name}</Typography>
                                             })}
                                     </div>
                                     <div style={{width: 700}}>
-                                        <h4> {detail.description} </h4>    
+                                        <Typography variant="h5" sx={{textAlign: 'left'}}> {detail.description} </Typography>    
                                     </div>  
                                 </div>
                     })}
                 
-                <button onClick={(event) => history.goBack('/')}>To Movie List</button>
+                <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.goBack('/')}>To Movie List</Button>
 
-            </div>
+            </Paper>
 } // end Details
 
 export default Details;

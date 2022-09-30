@@ -5,7 +5,6 @@ import MovieItem from '../MovieItem/MovieItem.jsx';
 import Grid from '@mui/material/Grid';
 
 
-
 function MovieList() {
 
     const dispatch = useDispatch();
@@ -21,10 +20,10 @@ function MovieList() {
                 <Grid container spacing={2}>
                     {movies.map(movie => {
                         return (
-                            <Grid item xs={6} md={4} lg={3}>
+                            <Grid item xs={6} md={4} lg={3} key={movie.id}>
                                 <MovieItem 
                                     movie={movie}
-                                    key={movie.id}
+                                    
                                 />
                             </Grid>
                         );

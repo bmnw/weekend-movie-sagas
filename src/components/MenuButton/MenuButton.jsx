@@ -3,6 +3,7 @@ import {useState} from 'react';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const MenuButton = () => {
 
@@ -21,35 +22,26 @@ const MenuButton = () => {
 
     const toAddMovie = () => {
         console.log('in toAddMovie');
-        history.push('/details');
+        history.push('/add-movie');
     } // end toAddMovie
 
     return  <>
              <div>
-      <Button
-        // aria-controls={open ? 'demo-positioned-menu' : undefined}
-        // aria-haspopup="true"
-        // aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        Menu
-      </Button>
-      <Menu
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <MenuItem onClick={toAddMovie}>Add Movie</MenuItem>
-      </Menu>
-    </div>
+                <Button
+                  onClick={handleClick}
+                >
+                  <MenuIcon />
+                  Menu
+                </Button>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={(event) => history.push('/')}>Movie List</MenuItem>
+                  <MenuItem onClick={toAddMovie}>Add Movie</MenuItem>
+                </Menu>
+              </div>
             </>
 } // end MenuButton
 

@@ -1,4 +1,5 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MenuButton from '../MenuButton/MenuButton.jsx';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
@@ -19,6 +20,14 @@ const AddMovie = () => {
         setAnchorEl(null);
     }
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GENRES' });
+    }, []);
+
+    const allGenres = useSelector(store => store.genres);
+
     return  <> 
                 <MenuButton />
                 <Card>
@@ -37,7 +46,11 @@ const AddMovie = () => {
                             open={open}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={(event) => history.push('/')}>Movie List</MenuItem>
+                            {allGenres.map(genre => {
+                                return  <MenuItem>
+                                            {genre.name}
+                                        </MenuItem>
+                            })}
                         </Menu>
               </div>
                 </Card>

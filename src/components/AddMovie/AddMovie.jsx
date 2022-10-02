@@ -18,6 +18,7 @@ const AddMovie = () => {
         dispatch({ type: 'FETCH_GENRES' });
     }, []);
 
+    // code for dropdown  menu
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
 
@@ -30,6 +31,8 @@ const AddMovie = () => {
     }
 
     const allGenres = useSelector(store => store.genres);
+
+    // new movie details variables
     const [genreID, setGenreID] = useState('');
     const [genre, setGenre] = useState('');
     const [movieTitle, setMovieTitle] = useState('');
@@ -38,7 +41,7 @@ const AddMovie = () => {
 
     const handleSave = () => {
         console.log('in handleSave', movieTitle, posterLink, movieDescription, genreID);
-        dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}});
+        dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}, toMovieList: toMovieList});
     } // end handleSave
 
     const selectGenre = (inputID, inputName) => {
@@ -47,12 +50,17 @@ const AddMovie = () => {
         setGenreID(inputID);
     } // end selectGenre
 
+    const toMovieList = () => {
+        console.log('in toMovieList');
+        history.push('/');
+    } // end toDetails
+
     return  <div> 
                 <MenuButton />
                 <Card elevation={5}>
                     <TextField sx={{margin: 2}} label="Movie Title" variant="outlined" type='text' value={movieTitle} onChange={(event) => setMovieTitle(event.target.value)}/>
                     <TextField sx={{margin: 2}} label="Movie Description" variant="outlined" multiline minRows="4" type='text' value={movieDescription} onChange={(event) => setMovieDescription(event.target.value)}/>
-                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text' value={posterLink} onChange={(event) => setPosterLink(event.target.value)}/>
+                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text' multiline minRows="4"  value={posterLink} onChange={(event) => setPosterLink(event.target.value)}/>
                     {/* <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={selectedGenre}/> */}
                     <div>
                         <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={genre}/>

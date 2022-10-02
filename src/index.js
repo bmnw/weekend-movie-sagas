@@ -25,6 +25,7 @@ function* postMovie (action) {
     try {
         yield axios.post('/api/movie', action.payload);
         yield put ({type: 'FETCH_MOVIES'});
+        action.toMovieList();
     } catch (error) {
         console.log('error in postMovie saga', error);
         alert('Something went wrong in postMovie saga');

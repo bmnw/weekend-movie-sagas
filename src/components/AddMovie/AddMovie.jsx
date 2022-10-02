@@ -2,12 +2,12 @@ import {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import MenuButton from '../MenuButton/MenuButton.jsx';
-import GenreMenuItem from './GenreMenuItem.jsx';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import Container from '@mui/material/Grid';
 
 const AddMovie = () => {
 
@@ -55,15 +55,48 @@ const AddMovie = () => {
         history.push('/');
     } // end toDetails
 
-    return  <div> 
+    return  <>
+            <Container sx={{display: 'flex', justifyContent: 'center'}}> 
                 <MenuButton />
-                <Card elevation={5}>
-                    <TextField sx={{margin: 2}} label="Movie Title" variant="outlined" type='text' value={movieTitle} onChange={(event) => setMovieTitle(event.target.value)}/>
-                    <TextField sx={{margin: 2}} label="Movie Description" variant="outlined" multiline minRows="4" type='text' value={movieDescription} onChange={(event) => setMovieDescription(event.target.value)}/>
-                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text' multiline minRows="4"  value={posterLink} onChange={(event) => setPosterLink(event.target.value)}/>
-                    {/* <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={selectedGenre}/> */}
+            </Container>
+            <Container sx={{display: 'flex', justifyContent: 'center'}}>
+                <Card elevation={5} sx={{width: '50%', padding: 2}}>
+                    <TextField 
+                        sx={{margin: 2}} 
+                        label="Movie Title" 
+                        variant="outlined" 
+                        type='text' 
+                        value={movieTitle} 
+                        onChange={(event) => setMovieTitle(event.target.value)}
+                    />
+                    <TextField 
+                        sx={{margin: 2, minWidth: 500}} 
+                        label="Movie Description" 
+                        variant="outlined" 
+                        multiline 
+                        minRows="4" 
+                        type='text' 
+                        value={movieDescription} 
+                        onChange={(event) => setMovieDescription(event.target.value)}
+                    />
+                    <TextField 
+                        sx={{margin: 2, minWidth: 500}} 
+                        label="Movie Poster Link (max 120 characters!)" 
+                        variant="outlined" 
+                        type='text' 
+                        multiline 
+                        minRows="4"  
+                        value={posterLink} 
+                        onChange={(event) => setPosterLink(event.target.value)}
+                    />
                     <div>
-                        <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={genre}/>
+                        <TextField 
+                            sx={{margin: 2}} 
+                            label="Select a movie genre from list" 
+                            variant="outlined" 
+                            type='text' 
+                            value={genre}
+                        />
                         <Button
                             onClick={handleClick}
                         >
@@ -85,7 +118,8 @@ const AddMovie = () => {
                     <Button onClick={(event) => history.goBack('/')}>Cancel</Button>
                     <Button onClick={handleSave}>Save</Button>
                 </Card>
-            </div>
+            </Container>
+        </>
 } // end AddMovie
 
 export default AddMovie;

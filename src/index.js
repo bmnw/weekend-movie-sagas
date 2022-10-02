@@ -10,6 +10,7 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -19,9 +20,15 @@ function* rootSaga() {
     yield takeEvery('POST_MOVIE', postMovie);
 }
 
-function* postMovie () {
+function* postMovie (action) {
     console.log('in postMovie sasga');
-
+    try {
+        yield axios.post('/api/movie', action.payload);
+        yield put ({type: 'FETCH_MOVIES'});
+    } catch (error) {
+        console.log('error in postMovie saga', error);
+        alert('Something went wrong in postMovie saga');
+    }
 } // end postMovie saga
 
 function* fetchAllGenres() {

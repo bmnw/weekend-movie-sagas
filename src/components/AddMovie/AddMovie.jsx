@@ -38,7 +38,7 @@ const AddMovie = () => {
 
     const handleSave = () => {
         console.log('in handleSave', movieTitle, posterLink, movieDescription, genreID);
-        // dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}});
+        dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}});
     } // end handleSave
 
     const selectGenre = (inputID, inputName) => {

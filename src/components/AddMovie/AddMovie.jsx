@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {useHistory} from 'react-router-dom';
 import MenuButton from '../MenuButton/MenuButton.jsx';
+import GenreMenuItem from './GenreMenuItem.jsx';
 import Card from '@mui/material/Card';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,6 +10,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
 const AddMovie = () => {
+
+    const history = useHistory();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_GENRES' });
+    }, []);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -20,18 +29,24 @@ const AddMovie = () => {
         setAnchorEl(null);
     }
 
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_GENRES' });
-    }, []);
-
     const allGenres = useSelector(store => store.genres);
 
+    const selectGenre = (inputID, inputName) => {
+        console.log('in selectGenre', inputID, inputName);
+        // setSelectedGenreID(inputID);
+        // setSelectedGenre(inputName);
+    } // end selectGenre
+
     const [selectedGenre, setSelectedGenre] = useState('');
+    const [selectedGenreID, setSelectedGenreID] = useState('');
     const [movieTitle, setMovieTitle] = useState('');
     const [movieDescription, setMovieDescription] = useState('');
     const [posterLink, setPosterLink] = useState('');
+
+    const handleSave = () => {
+        console.log('in handleSave');
+        dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: selectedGenreID}});
+    } // end handleSave
 
     return  <div> 
                 <MenuButton />
@@ -53,14 +68,15 @@ const AddMovie = () => {
                             onClose={handleClose}
                         >
                             {allGenres.map(genre => {
-                                return  <MenuItem key={genre.id} onClick={(event) => setSelectedGenre(genre.name)}>
-                                            {genre.name}
-                                        </MenuItem>
+                                return  <GenreMenuItem 
+                                            genre={genre}
+                                        />
+                                
                             })}
                         </Menu>
                     </div>
-                    <Button>Cancel</Button>
-                    <Button>Save</Button>
+                    <Button onClick={(event) => history.goBack('/')}>Cancel</Button>
+                    <Button onClick={handleSave}>Save</Button>
                 </Card>
             </div>
 } // end AddMovie

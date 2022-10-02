@@ -30,33 +30,32 @@ const AddMovie = () => {
     }
 
     const allGenres = useSelector(store => store.genres);
-
-    const selectGenre = (inputID, inputName) => {
-        console.log('in selectGenre', inputID, inputName);
-        // setSelectedGenreID(inputID);
-        // setSelectedGenre(inputName);
-    } // end selectGenre
-
-    const [selectedGenre, setSelectedGenre] = useState('');
-    const [selectedGenreID, setSelectedGenreID] = useState('');
+    const [genreID, setGenreID] = useState('');
+    const [genre, setGenre] = useState('');
     const [movieTitle, setMovieTitle] = useState('');
     const [movieDescription, setMovieDescription] = useState('');
     const [posterLink, setPosterLink] = useState('');
 
     const handleSave = () => {
-        console.log('in handleSave');
-        dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: selectedGenreID}});
+        console.log('in handleSave', movieTitle, posterLink, movieDescription, genreID);
+        // dispatch({type: 'POST_MOVIE', payload: {title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}});
     } // end handleSave
+
+    const selectGenre = (inputID, inputName) => {
+        console.log('in selectGenre', inputID, inputName);
+        setGenre(inputName);
+        setGenreID(inputID);
+    } // end selectGenre
 
     return  <div> 
                 <MenuButton />
                 <Card elevation={5}>
-                    <TextField sx={{margin: 2}} label="Movie Title" variant="outlined" type='text' onChange={setMovieTitle}/>
-                    <TextField sx={{margin: 2}} label="Movie Description" variant="outlined" multiline minRows="4" type='text' onChange={setMovieDescription}/>
-                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text' onChange={setPosterLink}/>
+                    <TextField sx={{margin: 2}} label="Movie Title" variant="outlined" type='text' value={movieTitle} onChange={(event) => setMovieTitle(event.target.value)}/>
+                    <TextField sx={{margin: 2}} label="Movie Description" variant="outlined" multiline minRows="4" type='text' value={movieDescription} onChange={(event) => setMovieDescription(event.target.value)}/>
+                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text' value={posterLink} onChange={(event) => setPosterLink(event.target.value)}/>
                     {/* <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={selectedGenre}/> */}
                     <div>
-                        <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={selectedGenre}/>
+                        <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={genre}/>
                         <Button
                             onClick={handleClick}
                         >
@@ -68,9 +67,9 @@ const AddMovie = () => {
                             onClose={handleClose}
                         >
                             {allGenres.map(genre => {
-                                return  <GenreMenuItem 
-                                            genre={genre}
-                                        />
+                                return  <MenuItem key={genre.id} onClick={() => selectGenre(genre.id, genre.name)}>
+                                            {genre.name}
+                                         </MenuItem>
                                 
                             })}
                         </Menu>

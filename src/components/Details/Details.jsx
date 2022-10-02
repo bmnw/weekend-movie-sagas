@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {useHistory} from 'react-router-dom';
 import './Details.css';
+import MenuButton from '../MenuButton/MenuButton.jsx';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
@@ -12,8 +13,9 @@ const Details = () => {
     const genres = useSelector(store => store.movieGenres);
     const movieDetails = useSelector(store => store.movieDetails);
 
-    return  <Paper className="movie-info" elevation={10}> 
-                
+    return  <>
+                <MenuButton />
+                <Paper className="movie-info" elevation={10}> 
                     {movieDetails.map(detail => {
                         return  <div style={{display: "flex", justifyContent: "space-between"}} key={detail.id}>
                                     <div>
@@ -31,9 +33,11 @@ const Details = () => {
                                 </div>
                     })}
                 
-                <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.goBack('/')}>To Movie List</Button>
-
-            </Paper>
+                    <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.goBack('/')}>To Movie List</Button>
+                </Paper>
+            </>
+    
+   
 } // end Details
 
 export default Details;

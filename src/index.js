@@ -10,11 +10,36 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
     yield takeEvery('FETCH_THIS_MOVIE', fetchThisMovie);
+    yield takeEvery('FETCH_GENRES', fetchAllGenres);
+    yield takeEvery('POST_MOVIE', postMovie);
+}
+
+function* postMovie (action) {
+    console.log('in postMovie sasga');
+    try {
+        yield axios.post('/api/movie', action.payload);
+        yield put ({type: 'FETCH_MOVIES'});
+    } catch (error) {
+        console.log('error in postMovie saga', error);
+        alert('Something went wrong in postMovie saga');
+    }
+} // end postMovie saga
+
+function* fetchAllGenres() {
+    console.log('in fetchAllGenres saga');
+    try{
+        const genres = yield axios.get('/api/genre');
+        yield put({type: 'SET_GENRES', payload: genres.data});
+    } catch (error) {
+        console.log('ERROR in fetchAllGenres saga', error);
+        alert('Something went wrong in fetchAllGenres saga');
+    }
 }
 
 function* fetchAllMovies() {
@@ -47,8 +72,7 @@ function* fetchThisMovie(action) {
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
-// Used to store movies returned from the server
-
+// selected movie details
 const movieDetails = (state = [], action) => {
     console.log('movieDetails reducer');
     if(action.type === 'SET_MOVIE_DETAILS'){
@@ -57,6 +81,7 @@ const movieDetails = (state = [], action) => {
     return state;
 } // end movieDetails
 
+ // selected movie genre(s)
 const movieGenres = (state = [], action) => {
     console.log('movieGenres reducer');
     if(action.type === 'SET_MOVIE_GENRES'){
@@ -65,6 +90,7 @@ const movieGenres = (state = [], action) => {
     return state
 } // end movieGenres
 
+// set movie list 
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
@@ -74,7 +100,7 @@ const movies = (state = [], action) => {
     }
 }
 
-// Used to store the movie genres
+// set list of movie genres for AddMovie dropdown list
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
@@ -84,13 +110,29 @@ const genres = (state = [], action) => {
     }
 }
 
+const newMovieGenreName = (state = '', action) => {
+    if (action.type === 'SET_NEW_MOVIE_GENRE') {
+        return action.payload;
+    }
+    return state;
+}
+
+const newMovieGenreID = (state = '', action) => {
+    if (action.type === 'SET_NEW_MOVIE_GENRE_ID') {
+        return action.payload;
+    }
+    return state;
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         movieDetails,
-        movieGenres
+        movieGenres,
+        newMovieGenreName,
+        newMovieGenreID
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

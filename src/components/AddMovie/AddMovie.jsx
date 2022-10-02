@@ -28,18 +28,24 @@ const AddMovie = () => {
 
     const allGenres = useSelector(store => store.genres);
 
-    return  <> 
+    const [selectedGenre, setSelectedGenre] = useState('');
+    const [movieTitle, setMovieTitle] = useState('');
+    const [movieDescription, setMovieDescription] = useState('');
+    const [posterLink, setPosterLink] = useState('');
+
+    return  <div> 
                 <MenuButton />
-                <Card>
-                    <TextField sx={{margin: 2}} label="Movie Title" variant="outlined" type='text'/>
-                    <TextField sx={{margin: 2}} label="Movie Description" variant="outlined" multiline type='text'/>
-                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text'/>
-                    <TextField sx={{margin: 2}} label="Select a movie genre" variant="outlined" type='text'/>
+                <Card elevation={5}>
+                    <TextField sx={{margin: 2}} label="Movie Title" variant="outlined" type='text' onChange={setMovieTitle}/>
+                    <TextField sx={{margin: 2}} label="Movie Description" variant="outlined" multiline minRows="4" type='text' onChange={setMovieDescription}/>
+                    <TextField sx={{margin: 2}} label="Movie Poster Link" variant="outlined" type='text' onChange={setPosterLink}/>
+                    {/* <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={selectedGenre}/> */}
                     <div>
+                        <TextField sx={{margin: 2}} label="Select a movie genre from list" variant="outlined" type='text' value={selectedGenre}/>
                         <Button
                             onClick={handleClick}
                         >
-                            Movie Genres
+                            List of Genres
                         </Button>
                         <Menu
                             anchorEl={anchorEl}
@@ -47,14 +53,16 @@ const AddMovie = () => {
                             onClose={handleClose}
                         >
                             {allGenres.map(genre => {
-                                return  <MenuItem>
+                                return  <MenuItem key={genre.id} onClick={(event) => setSelectedGenre(genre.name)}>
                                             {genre.name}
                                         </MenuItem>
                             })}
                         </Menu>
-              </div>
+                    </div>
+                    <Button>Cancel</Button>
+                    <Button>Save</Button>
                 </Card>
-            </>
+            </div>
 } // end AddMovie
 
 export default AddMovie;

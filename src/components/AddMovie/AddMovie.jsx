@@ -98,10 +98,7 @@ const AddMovie = () => {
                             value={genre}
                         />
                         <Button
-                            onClick={handleClick}
-                        >
-                            List of Genres
-                        </Button>
+                            onClick={handleClick}>List of Genres</Button>
                         <Menu
                             anchorEl={anchorEl}
                             open={open}

@@ -25,10 +25,20 @@ router.put('/:id', (req, res) => {
                     WHERE "movies"."id" = $1;`
   pool.query(queryText, [req.params.id, req.body.title, req.body.poster, req.body.description])
     .then(result => {
-      res.sendStatus(200);
+        const genreQueryText =    `UPDATE "movies_genres"
+                                  SET "genre_id" = $2
+                                  WHERE "movie_id" = $1;`
+        pool.query(genreQueryText, [req.params.id, req.body.genre_id])
+          .then(result => {
+            res.sendStatus(200);
+          })
+          .catch(error => {
+            console.log('error in movie PUT /:id genre query', error);
+            res.sendStatus(500);
+          });
     })
     .catch(error => {
-      console.log('error in movie PUT /:id', error);
+      console.log('error in movie PUT /:id movie details query', error);
       res.sendStatus(500);
     });
 });

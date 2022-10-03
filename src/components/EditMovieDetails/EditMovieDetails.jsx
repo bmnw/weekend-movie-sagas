@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Grid';
+import { Typography } from '@mui/material';
 
 const EditMovieDetails = () => {
 
@@ -40,7 +41,9 @@ const EditMovieDetails = () => {
      const [movieTitle, setMovieTitle] = useState('');
      const [movieDescription, setMovieDescription] = useState('');
      const [posterLink, setPosterLink] = useState('');
+
      const movieDetails = useSelector(store => store.movieDetails);
+     const movieGenres = useSelector(store => store.movieGenres);
 
      const toDetails = (inputID) => {
         console.log('in toDetails');
@@ -48,8 +51,8 @@ const EditMovieDetails = () => {
      }
  
      const handleSave = () => {
-         console.log('in handleSave', movieid, movieTitle, posterLink, movieDescription);
-         dispatch({type: 'PUT_MOVIE', payload: {id: movieid, title: movieTitle, poster: posterLink, description: movieDescription}, toDetails: toDetails});
+         console.log('in handleSave', movieid, movieTitle, posterLink, movieDescription, genreID);
+         dispatch({type: 'PUT_MOVIE', payload: {id: movieid, title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}, toDetails: toDetails});
      } // end handleSave
  
      const selectGenre = (inputID, inputName) => {
@@ -67,17 +70,23 @@ const EditMovieDetails = () => {
                     <Container sx={{display: 'flex', justifyContent: 'center'}}>
                         {movieDetails.map(detail => {
                             return  <Card elevation={5} sx={{width: '50%', padding: 2}}>
+                                        <Typography>{detail.title}</Typography>
                                         <TextField 
                                             sx={{margin: 2}} 
+                                            required
                                             helperText="Update movie title"
-                                            label={detail.title}
+                                            label="Required"
+                                            defaultValue={detail.title}
                                             variant="outlined" 
                                             type='text' 
                                             value={movieTitle}
                                             onChange={(event) => setMovieTitle(event.target.value)}
                                         />
+                                        <Typography>{detail.description}</Typography>
                                         <TextField 
                                             sx={{margin: 2, minWidth: 500}} 
+                                            required
+                                            label="Required"
                                             helperText="Update movie description"
                                             variant="outlined" 
                                             multiline 
@@ -86,11 +95,13 @@ const EditMovieDetails = () => {
                                             value={movieDescription} 
                                             onChange={(event) => setMovieDescription(event.target.value)}
                                         />
+                                        <img src={detail.poster} alt={detail.title} width="100"/>
                                         <TextField 
                                             sx={{margin: 2, minWidth: 500}} 
-                                            label="Movie Poster Link (max 120 characters!)" 
-                                            helperText="Update movie poster link"
+                                            helperText="Update movie poster link. Max char: 120"
                                             variant="outlined" 
+                                            required
+                                            label="Required"
                                             type='text' 
                                             multiline 
                                             minRows="4"  
@@ -98,10 +109,15 @@ const EditMovieDetails = () => {
                                             onChange={(event) => setPosterLink(event.target.value)}
                                         />
                                         <br />
-                                        {/* <div>
+                                        <div>
+                                            {movieGenres.map(genre => {
+                                                return <Typography>{genre.name}</Typography>
+                                            })}
                                             <TextField 
                                                 sx={{margin: 2}} 
-                                                label="Select a movie genre from list" 
+                                                helperText="Select a movie genre from list" 
+                                                required
+                                                label="Required"
                                                 variant="outlined" 
                                                 type='text' 
                                                 value={genre}
@@ -120,7 +136,7 @@ const EditMovieDetails = () => {
                                                     
                                                 })}
                                             </Menu>
-                                        </div> */}
+                                        </div>
                                         <Button onClick={(event) => history.goBack(`/details/${movieid}`)}>Cancel</Button>
                                         <Button onClick={handleSave}>Save</Button>
                                     </Card>

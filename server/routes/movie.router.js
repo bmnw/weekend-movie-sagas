@@ -16,6 +16,23 @@ router.get('/', (req, res) => {
 
 });
 
+router.put('/:id', (req, res) => {
+  console.log('in movie PUT /:id', req.params.id);
+  const queryText = `UPDATE "movies" SET 
+                    "title" = $2, 
+                    "poster" = $3,
+                    "description" = $4
+                    WHERE "movies"."id" = $1;`
+  pool.query(queryText, [req.params.id, req.body.title, req.body.poster, req.body.description])
+    .then(result => {
+      res.sendStatus(200);
+    })
+    .catch(error => {
+      console.log('error in movie PUT /:id', error);
+      res.sendStatus(500);
+    });
+});
+
 router.get('/:id', (req, res) => {
   console.log('in movie GET /:id');
   const movieID = req.params.id;

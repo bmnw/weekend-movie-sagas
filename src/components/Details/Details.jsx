@@ -6,12 +6,13 @@ import MenuButton from '../MenuButton/MenuButton.jsx';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import { ConstructionOutlined } from '@mui/icons-material';
 
 const Details = () => {
 
     let {movieid} = useParams(); 
     const history = useHistory();
-    const movieID = useSelector(store => store.selectedMovieID);
+    // const movieID = useSelector(store => store.selectedMovieID);
     const genres = useSelector(store => store.movieGenres);
     const movieDetails = useSelector(store => store.movieDetails);
 
@@ -42,7 +43,8 @@ const Details = () => {
                                 </div>
                     })}
                 
-                    <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.goBack('/')}>To Movie List</Button>
+                    <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.push('/')}>To Movie List</Button>
+                    <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.push(`/edit/${movieid}`)}>Edit Movie Details</Button>
                 </Paper>
             </>
     

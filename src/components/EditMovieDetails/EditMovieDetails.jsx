@@ -48,8 +48,8 @@ const EditMovieDetails = () => {
      }
  
      const handleSave = () => {
-         console.log('in handleSave', movieid, movieTitle, posterLink, movieDescription);
-         dispatch({type: 'PUT_MOVIE', payload: {id: movieid, title: movieTitle, poster: posterLink, description: movieDescription}, toDetails: toDetails});
+         console.log('in handleSave', movieid, movieTitle, posterLink, movieDescription, genreID);
+         dispatch({type: 'PUT_MOVIE', payload: {id: movieid, title: movieTitle, poster: posterLink, description: movieDescription, genre_id: genreID}, toDetails: toDetails});
      } // end handleSave
  
      const selectGenre = (inputID, inputName) => {
@@ -98,7 +98,7 @@ const EditMovieDetails = () => {
                                             onChange={(event) => setPosterLink(event.target.value)}
                                         />
                                         <br />
-                                        {/* <div>
+                                        <div>
                                             <TextField 
                                                 sx={{margin: 2}} 
                                                 label="Select a movie genre from list" 
@@ -120,7 +120,7 @@ const EditMovieDetails = () => {
                                                     
                                                 })}
                                             </Menu>
-                                        </div> */}
+                                        </div>
                                         <Button onClick={(event) => history.goBack(`/details/${movieid}`)}>Cancel</Button>
                                         <Button onClick={handleSave}>Save</Button>
                                     </Card>

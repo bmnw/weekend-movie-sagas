@@ -22,6 +22,16 @@ const Details = () => {
         dispatch({ type: 'FETCH_MOVIE_REFRESH', payload: movieid});
     }, []);
 
+    const toMovieList = () => {
+        console.log('in toMovieList');
+        history.push('/');
+    }
+
+    const handleDelete = (inputID) => {
+        console.log('in handleDelete', inputID);
+        dispatch({type: 'DELETE_MOVIE', payload: inputID, toMovieList: toMovieList});
+    } // end handleDelete
+
     return  <>
                 <br />
                 <MenuButton />
@@ -44,7 +54,8 @@ const Details = () => {
                     })}
                 
                     <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.push('/')}>To Movie List</Button>
-                    <Button sx={{margin: 5}} variant='contained' onClick={(event) => history.push(`/edit/${movieid}`)}>Edit Movie Details</Button>
+                    <Button sx={{margin: 5}} color='secondary' variant='contained' onClick={(event) => history.push(`/edit/${movieid}`)}>Edit Movie Details</Button>
+                    <Button sx={{margin: 5}} color='error' variant='contained' onClick={() => handleDelete(movieid)}>Delete Movie</Button>
                 </Paper>
             </>
     

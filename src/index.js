@@ -20,6 +20,18 @@ function* rootSaga() {
     yield takeEvery('POST_MOVIE', postMovie);
     yield takeEvery('FETCH_MOVIE_REFRESH', refreshMovieDetails);
     yield takeEvery('PUT_MOVIE', putMovie);
+    yield takeEvery('DELETE_MOVIE', deleteMovie);
+}
+
+function* deleteMovie (action) {
+    console.log('in deleteMovie saga', action.payload);
+    try{
+        yield axios.delete(`/api/movie/${action.payload}`);
+        action.toMovieList();
+    } catch (error) {
+        console.log('error in deleteMovie saga', error);
+        alert('Something went wrong deleting the movie.');
+    }
 }
 
 function* putMovie(action) {
@@ -30,7 +42,7 @@ function* putMovie(action) {
         action.toDetails(action.payload.id);
     } catch (error) {
         console.log('error in putMovie saga', error);
-        alert('Something went wrong in putMovie saga');
+        alert('Something went wrong updating the movie details. Likely the poster link has too many characters.');
     }
 }
 

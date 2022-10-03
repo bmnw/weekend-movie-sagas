@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+// GET all movies from database
 router.get('/', (req, res) => {
-
   const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {
@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
 
 });
 
+// PUT to update a movie already in the database
 router.put('/:id', (req, res) => {
   console.log('in movie PUT /:id', req.params.id);
   const queryText = `UPDATE "movies" SET 
@@ -43,6 +44,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
+// GET a selected movie
 router.get('/:id', (req, res) => {
   console.log('in movie GET /:id');
   const movieID = req.params.id;
@@ -58,6 +60,7 @@ router.get('/:id', (req, res) => {
     });
 });
 
+// POST to add a new movie to the database
 router.post('/', (req, res) => {
   console.log(req.body);
   // RETURNING "id" will give us back the id of the created movie
@@ -93,6 +96,29 @@ router.post('/', (req, res) => {
     console.log(err);
     res.sendStatus(500)
   })
-})
+});
+
+router.delete('/:id', (req, res) => {
+  console.log('in movie DELETE /:id', req.params.id);
+  const moviesGenresText = `DELETE FROM "movies_genres" 
+                            WHERE "movie_id" = $1;`
+  pool.query(moviesGenresText, [req.params.id])
+    .then(result => {
+      const moviesText = `DELETE FROM "movies" 
+                          WHERE "id" = $1;`
+      pool.query(moviesText, [req.params.id])
+        .then(result => {
+          res.sendStatus(200);
+        })
+        .catch(error => {
+          console.log('error in movie DELETE /:id moviesText', error);
+          res.sendStatus(500);
+        })
+    })
+    .catch(error => {
+      console.log('error in movie DELETE /:id moviesGenresText', error);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;

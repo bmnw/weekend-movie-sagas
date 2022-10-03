@@ -95,7 +95,9 @@ const EditMovieDetails = () => {
                                             value={movieDescription} 
                                             onChange={(event) => setMovieDescription(event.target.value)}
                                         />
+                                        <br />
                                         <img src={detail.poster} alt={detail.title} width="100"/>
+                                        
                                         <TextField 
                                             sx={{margin: 2, minWidth: 500}} 
                                             helperText="Update movie poster link. Max char: 120"

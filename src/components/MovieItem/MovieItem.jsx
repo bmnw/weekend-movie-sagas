@@ -13,8 +13,6 @@ const MovieItem = ({movie}) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    // let movieID;
-
     const toDetails = (inputId) => {
         console.log('in toDetails', inputId);
         history.push(`/details/${inputId}`);
@@ -22,7 +20,6 @@ const MovieItem = ({movie}) => {
 
     const handleClick = (inputId) => {
         console.log('in handleClick', inputId);
-        // movieID = inputId;
         dispatch({type: 'FETCH_THIS_MOVIE', payload: inputId, toDetails: toDetails});
         dispatch({type: 'SET_MOVIE_ID', payload: inputId});
     } // end handleClick

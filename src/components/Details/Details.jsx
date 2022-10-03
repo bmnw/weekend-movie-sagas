@@ -17,11 +17,6 @@ const Details = () => {
 
     const dispatch = useDispatch();
 
-    const toDetails = (inputId) => {
-        console.log('in toDetails', inputId);
-        history.push(`/details/${inputId}`);
-    } // end toDetails
-
     useEffect(() => {
         dispatch({ type: 'FETCH_MOVIE_REFRESH', payload: movieid});
     }, []);

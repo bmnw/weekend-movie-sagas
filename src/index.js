@@ -10,7 +10,6 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
-import { alignProperty } from '@mui/material/styles/cssUtils';
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -29,7 +28,7 @@ function* postMovie (action) {
         action.toMovieList();
     } catch (error) {
         console.log('error in postMovie saga', error);
-        alert('Something went wrong in postMovie saga');
+        alert('Something went wrong. Likely there are too many characters in the poster link.');
     }
 } // end postMovie saga
 
@@ -78,7 +77,6 @@ function* refreshMovieDetails(action) {
         yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data}); // add reducer with this action type
         const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
-        // action.toDetails(action.payload); // moving user to selected movie Details after successful GET requests
     } catch (error) {
         console.log('error in refreshMovieDetails', error);
         alert('Something went wrong getting movie details and genres.');
@@ -126,19 +124,19 @@ const genres = (state = [], action) => {
     }
 }
 
-const newMovieGenreName = (state = '', action) => {
-    if (action.type === 'SET_NEW_MOVIE_GENRE') {
-        return action.payload;
-    }
-    return state;
-}
+// const newMovieGenreName = (state = '', action) => {
+//     if (action.type === 'SET_NEW_MOVIE_GENRE') {
+//         return action.payload;
+//     }
+//     return state;
+// }
 
-const newMovieGenreID = (state = '', action) => {
-    if (action.type === 'SET_NEW_MOVIE_GENRE_ID') {
-        return action.payload;
-    }
-    return state;
-}
+// const newMovieGenreID = (state = '', action) => {
+//     if (action.type === 'SET_NEW_MOVIE_GENRE_ID') {
+//         return action.payload;
+//     }
+//     return state;
+// }
 
 const selectedMovieID = (state = '', action) => {
     if (action.type === 'SET_MOVIE_ID'){
@@ -154,8 +152,6 @@ const storeInstance = createStore(
         genres,
         movieDetails,
         movieGenres,
-        newMovieGenreName,
-        newMovieGenreID,
         selectedMovieID
     }),
     // Add sagaMiddleware to our store

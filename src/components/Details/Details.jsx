@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {useHistory} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import './Details.css';
 import MenuButton from '../MenuButton/MenuButton.jsx';
 import Typography from '@mui/material/Typography';
@@ -9,11 +9,25 @@ import Button from '@mui/material/Button';
 
 const Details = () => {
 
+    let {movieid} = useParams(); 
     const history = useHistory();
+    const movieID = useSelector(store => store.selectedMovieID);
     const genres = useSelector(store => store.movieGenres);
     const movieDetails = useSelector(store => store.movieDetails);
 
+    const dispatch = useDispatch();
+
+    const toDetails = (inputId) => {
+        console.log('in toDetails', inputId);
+        history.push(`/details/${inputId}`);
+    } // end toDetails
+
+    useEffect(() => {
+        dispatch({ type: 'FETCH_MOVIE_REFRESH', payload: movieid});
+    }, []);
+
     return  <>
+                <br />
                 <MenuButton />
                 <Paper className="movie-info" elevation={10}> 
                     {movieDetails.map(detail => {

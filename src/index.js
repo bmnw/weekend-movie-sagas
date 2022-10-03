@@ -18,6 +18,7 @@ function* rootSaga() {
     yield takeEvery('FETCH_THIS_MOVIE', fetchThisMovie);
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('POST_MOVIE', postMovie);
+    yield takeEvery('FETCH_MOVIE_REFRESH', refreshMovieDetails);
 }
 
 function* postMovie (action) {
@@ -63,9 +64,23 @@ function* fetchThisMovie(action) {
         yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data}); // add reducer with this action type
         const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
-        action.toDetails(); // moving user to selected movie Details after successful GET requests
+        action.toDetails(action.payload); // moving user to selected movie Details after successful GET requests
     } catch (error) {
         console.log('error in fetchThisMovie', error);
+        alert('Something went wrong getting movie details and genres.');
+    }
+} // end fetchThisMovie
+
+function* refreshMovieDetails(action) {
+    console.log('in refreshMovieDetails saga');
+    try {
+        const movieDetails = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
+        yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data}); // add reducer with this action type
+        const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
+        yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
+        // action.toDetails(action.payload); // moving user to selected movie Details after successful GET requests
+    } catch (error) {
+        console.log('error in refreshMovieDetails', error);
         alert('Something went wrong getting movie details and genres.');
     }
 } // end fetchThisMovie
@@ -125,6 +140,13 @@ const newMovieGenreID = (state = '', action) => {
     return state;
 }
 
+const selectedMovieID = (state = '', action) => {
+    if (action.type === 'SET_MOVIE_ID'){
+        return action.payload;
+    }
+    return state;
+}
+
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
@@ -133,7 +155,8 @@ const storeInstance = createStore(
         movieDetails,
         movieGenres,
         newMovieGenreName,
-        newMovieGenreID
+        newMovieGenreID,
+        selectedMovieID
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

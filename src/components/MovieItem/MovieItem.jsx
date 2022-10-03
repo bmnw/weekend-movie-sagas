@@ -13,14 +13,18 @@ const MovieItem = ({movie}) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const toDetails = () => {
-        console.log('in toDetails');
-        history.push('/details');
+    // let movieID;
+
+    const toDetails = (inputId) => {
+        console.log('in toDetails', inputId);
+        history.push(`/details/${inputId}`);
     } // end toDetails
 
     const handleClick = (inputId) => {
         console.log('in handleClick', inputId);
+        // movieID = inputId;
         dispatch({type: 'FETCH_THIS_MOVIE', payload: inputId, toDetails: toDetails});
+        dispatch({type: 'SET_MOVIE_ID', payload: inputId});
     } // end handleClick
 
     return  <>

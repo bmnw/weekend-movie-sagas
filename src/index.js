@@ -10,6 +10,7 @@ import logger from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { takeEvery, put } from 'redux-saga/effects';
 import axios from 'axios';
+import { alignProperty } from '@mui/material/styles/cssUtils';
 
 // Create the rootSaga generator function
 function* rootSaga() {
@@ -18,6 +19,19 @@ function* rootSaga() {
     yield takeEvery('FETCH_GENRES', fetchAllGenres);
     yield takeEvery('POST_MOVIE', postMovie);
     yield takeEvery('FETCH_MOVIE_REFRESH', refreshMovieDetails);
+    yield takeEvery('PUT_MOVIE', putMovie);
+}
+
+function* putMovie(action) {
+    console.log('in putMovie saga');
+    console.log('action.payload.id', action.payload.id);
+    try{
+        yield axios.put(`/api/movie/${action.payload.id}`, action.payload);
+        action.toDetails(action.payload.id);
+    } catch (error) {
+        console.log('error in putMovie saga', error);
+        alert('Something went wrong in putMovie saga');
+    }
 }
 
 function* postMovie (action) {
@@ -74,6 +88,7 @@ function* refreshMovieDetails(action) {
     console.log('in refreshMovieDetails saga');
     try {
         const movieDetails = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
+        console.log(movieDetails.poster);
         yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data}); // add reducer with this action type
         const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type

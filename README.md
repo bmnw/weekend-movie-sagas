@@ -12,7 +12,7 @@ Thankfully, Blockduster can help! Blockduster provides a platform for keeping tr
 
 ## Screen Shots
 
-![Blockduster Movie List](<img src="public/screenshots/movie-list.jpg style="width: 200px;"/>)
+![Blockduster Movie List](<img src="public/screenshots/movie-list.jpg" style="width: 200px;"/>)
 
 ![Blockduster Movie Details](public/screenshots/movie-details.jpg)
 

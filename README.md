@@ -14,11 +14,11 @@ Thankfully, Blockduster can help! Blockduster provides a platform for keeping tr
 
 <img src="public/screenshots/movie-list.jpg" style="width: 400px;"/>
 
-![Blockduster Movie Details](public/screenshots/movie-details.jpg)
+<img src="public/screenshots/movie-details.jpg" style="width: 400px;"/>
 
-![Blockduster Edit Movie Details](public/screenshots/edit-movie-details.jpg)
+<img src="public/screenshots/edit-movie-details.jpg" style="width: 400px;"/>
 
-![Blockduster Add Movie](public/screenshots/add-movie.jpg)
+<img src="public/screenshots/add-movie.jpg" style="width: 400px;"/>
 
 ### Prerequisites
 

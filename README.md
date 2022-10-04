@@ -12,13 +12,13 @@ Thankfully, Blockduster can help! Blockduster provides a platform for keeping tr
 
 ## Screen Shots
 
-![Blockduster Movie List](public/images/screenshots/movie-list.jpg)
+![Blockduster Movie List](public/screenshots/movie-list.jpg)
 
-![Blockduster Movie Details](public/images/screenshots/movie-details.jpg)
+![Blockduster Movie Details](public/screenshots/movie-details.jpg)
 
-![Blockduster Edit Movie Details](public/images/screenshots/edit-movie-details.jpg)
+![Blockduster Edit Movie Details](public/screenshots/edit-movie-details.jpg)
 
-![Blockduster Add Movie](public/images/screenshots/add-movie.jpg)
+![Blockduster Add Movie](public/screenshots/add-movie.jpg)
 
 ### Prerequisites
 

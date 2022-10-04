@@ -6,13 +6,11 @@ import MenuButton from '../MenuButton/MenuButton.jsx';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import { ConstructionOutlined } from '@mui/icons-material';
 
 const Details = () => {
 
     let {movieid} = useParams(); 
     const history = useHistory();
-    // const movieID = useSelector(store => store.selectedMovieID);
     const genres = useSelector(store => store.movieGenres);
     const movieDetails = useSelector(store => store.movieDetails);
 
@@ -25,7 +23,7 @@ const Details = () => {
     const toMovieList = () => {
         console.log('in toMovieList');
         history.push('/');
-    }
+    } // end toMovieList
 
     const handleDelete = (inputID) => {
         console.log('in handleDelete', inputID);

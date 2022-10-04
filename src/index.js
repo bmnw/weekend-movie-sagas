@@ -22,6 +22,8 @@ function* rootSaga() {
     yield takeEvery('DELETE_MOVIE', deleteMovie);
 }
 
+// SAGAS
+// delete selected movie and return user to movie list
 function* deleteMovie (action) {
     console.log('in deleteMovie saga', action.payload);
     try{
@@ -33,6 +35,7 @@ function* deleteMovie (action) {
     }
 }
 
+// update the details of a selected movie and return user to details page if successfully updated
 function* putMovie(action) {
     console.log('in putMovie saga');
     console.log('action.payload.id', action.payload.id);
@@ -45,6 +48,7 @@ function* putMovie(action) {
     }
 }
 
+// add new movie to the movie list
 function* postMovie (action) {
     console.log('in postMovie sasga');
     try {
@@ -57,6 +61,7 @@ function* postMovie (action) {
     }
 } // end postMovie saga
 
+// get all of the genres in the database and set the genres reducer
 function* fetchAllGenres() {
     console.log('in fetchAllGenres saga');
     try{
@@ -68,6 +73,7 @@ function* fetchAllGenres() {
     }
 }
 
+// get all of the movies and related details from the database, set the movie details reducer
 function* fetchAllMovies() {
     // get all movies from the DB
     try {
@@ -81,6 +87,7 @@ function* fetchAllMovies() {
         
 }
 
+// get the details of the selected movie, then get the genres associated with that movie, then take user to details page
 function* fetchThisMovie(action) {
     console.log('in fetchThisMovie saga');
     try {
@@ -95,11 +102,11 @@ function* fetchThisMovie(action) {
     }
 } // end fetchThisMovie
 
+// get movie details and genres of selected movie when the page is refreshed
 function* refreshMovieDetails(action) {
     console.log('in refreshMovieDetails saga');
     try {
         const movieDetails = yield axios.get(`/api/movie/${action.payload}`); // payload is movie id
-        console.log(movieDetails.poster);
         yield put({type: 'SET_MOVIE_DETAILS', payload: movieDetails.data}); // add reducer with this action type
         const movieGenres = yield axios.get(`/api/genre/${action.payload}`); // payload is movie id
         yield put({type: 'SET_MOVIE_GENRES', payload: movieGenres.data}); // add reducer with this action type
@@ -107,11 +114,12 @@ function* refreshMovieDetails(action) {
         console.log('error in refreshMovieDetails', error);
         alert('Something went wrong getting movie details and genres.');
     }
-} // end fetchThisMovie
+} // end refreshMovieDetails
 
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
+// REDUCERS
 // selected movie details
 const movieDetails = (state = [], action) => {
     console.log('movieDetails reducer');
@@ -150,35 +158,13 @@ const genres = (state = [], action) => {
     }
 }
 
-// const newMovieGenreName = (state = '', action) => {
-//     if (action.type === 'SET_NEW_MOVIE_GENRE') {
-//         return action.payload;
-//     }
-//     return state;
-// }
-
-// const newMovieGenreID = (state = '', action) => {
-//     if (action.type === 'SET_NEW_MOVIE_GENRE_ID') {
-//         return action.payload;
-//     }
-//     return state;
-// }
-
-const selectedMovieID = (state = '', action) => {
-    if (action.type === 'SET_MOVIE_ID'){
-        return action.payload;
-    }
-    return state;
-}
-
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         movieDetails,
-        movieGenres,
-        selectedMovieID
+        movieGenres
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),

@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Container from '@mui/material/Grid';
+import { Typography } from '@mui/material';
 
 const AddMovie = () => {
 
@@ -61,6 +62,7 @@ const AddMovie = () => {
             </Container>
             <Container sx={{display: 'flex', justifyContent: 'center'}}>
                 <Card elevation={5} sx={{width: '50%', padding: 2}}>
+                    <Typography variant="h4">Add Movie</Typography>
                     <TextField 
                         sx={{margin: 2}} 
                         label="Movie Title" 

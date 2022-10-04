@@ -70,6 +70,8 @@ const EditMovieDetails = () => {
                     <Container sx={{display: 'flex', justifyContent: 'center'}}>
                         {movieDetails.map(detail => {
                             return  <Card elevation={5} sx={{width: '50%', padding: 2}}>
+                                        <Typography variant="h5">Edit Details: current info shown below</Typography>
+                                        <br />
                                         <Typography>{detail.title}</Typography>
                                         <TextField 
                                             sx={{margin: 2}} 

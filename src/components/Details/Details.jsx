@@ -32,7 +32,7 @@ const Details = () => {
 
     return  <>
                 <br />
-                <MenuButton />
+                {/* <MenuButton /> */}
                 <Paper className="movie-info" elevation={10}> 
                     {movieDetails.map(detail => {
                         return  <div style={{display: "flex", justifyContent: "space-between"}} key={detail.id}>

@@ -20,7 +20,7 @@ function MovieList() {
     return (
         <main>
             <section className="movies">
-                <MenuButton />
+                {/* <MenuButton /> */}
                 <br/>
                 <Grid container spacing={2}>
                     {movies.map(movie => {

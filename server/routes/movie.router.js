@@ -98,6 +98,7 @@ router.post('/', (req, res) => {
   })
 });
 
+// DELETE to remove the selected movie from both "movies" and "movies_genres"
 router.delete('/:id', (req, res) => {
   console.log('in movie DELETE /:id', req.params.id);
   const moviesGenresText = `DELETE FROM "movies_genres" 

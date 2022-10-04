@@ -64,8 +64,9 @@ const EditMovieDetails = () => {
 
 
     return  <> 
+                <br />
                 <Container sx={{display: 'flex', justifyContent: 'center'}}> 
-                    <MenuButton />
+                    {/* <MenuButton /> */}
                     </Container>
                     <Container sx={{display: 'flex', justifyContent: 'center'}}>
                         {movieDetails.map(detail => {

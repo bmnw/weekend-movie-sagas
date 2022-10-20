@@ -57,10 +57,7 @@ const AddMovie = () => {
     } // end toDetails
 
     return  <>
-            <Container sx={{display: 'flex', justifyContent: 'center'}}> 
-                <MenuButton />
-            </Container>
-            <Container sx={{display: 'flex', justifyContent: 'center'}}>
+            <Container sx={{display: 'flex', justifyContent: 'center', margin: 4}}>
                 <Card elevation={5} sx={{width: '50%', padding: 2}}>
                     <Typography variant="h4">Add Movie</Typography>
                     <TextField 

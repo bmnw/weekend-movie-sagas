@@ -121,7 +121,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 // REDUCERS
 // selected movie details
-const movieDetails = (state = {}, action) => {
+const movieDetails = (state = [], action) => {
     console.log('movieDetails reducer');
     if(action.type === 'SET_MOVIE_DETAILS'){
         return action.payload;

@@ -9,15 +9,19 @@ const MenuButton = () => {
 
     const history = useHistory();
 
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState(null); // used to position the menu
+    const open = Boolean(anchorEl); // true or false
+    // const [showMenu, setShowMenu] = useState(false); // using this instead of anchorEl loses element positioning
+    // const open = showMenu;
 
     const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+        console.log(event.currentTarget);
+        console.log(Boolean(event.currentTarget)); // true
+        setAnchorEl(event.currentTarget); // sets anchorEl to true, which triggers the menu to open
     }
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null); // sets anchorEl to false, which closes the menu
     }
 
     const toAddMovie = () => {
@@ -29,6 +33,7 @@ const MenuButton = () => {
              <div>
                 <Button
                   onClick={handleClick}
+                  variant="contained"
                 >
                   <MenuIcon />
                   Menu

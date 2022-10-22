@@ -70,7 +70,7 @@ const EditMovieDetails = () => {
                     </Container>
                     <Container sx={{display: 'flex', justifyContent: 'center'}}>
                         {movieDetails.map(detail => {
-                            return  <Card elevation={5} sx={{width: '50%', padding: 2}}>
+                            return  <Card key={detail.id} elevation={5} sx={{width: '50%', padding: 2, marginBottom: 2}}>
                                         <Typography variant="h5">Edit Details: current info shown below</Typography>
                                         <br />
                                         <Typography>{detail.title}</Typography>
@@ -79,7 +79,7 @@ const EditMovieDetails = () => {
                                             required
                                             helperText="Update movie title"
                                             label="Required"
-                                            defaultValue={detail.title}
+                                            // defaultValue={detail.title}
                                             variant="outlined" 
                                             type='text' 
                                             value={movieTitle}
@@ -116,7 +116,7 @@ const EditMovieDetails = () => {
                                         <br />
                                         <div>
                                             {movieGenres.map(genre => {
-                                                return <Typography>{genre.name}</Typography>
+                                                return <Typography key={genre.id}>{genre.name}</Typography>
                                             })}
                                             <TextField 
                                                 sx={{margin: 2}} 
@@ -128,7 +128,9 @@ const EditMovieDetails = () => {
                                                 value={genre}
                                             />
                                             <Button
-                                                onClick={handleClick}>List of Genres</Button>
+                                                variant="contained"
+                                                onClick={handleClick}>List of Genres
+                                            </Button>
                                             <Menu
                                                 anchorEl={anchorEl}
                                                 open={open}
@@ -142,65 +144,11 @@ const EditMovieDetails = () => {
                                                 })}
                                             </Menu>
                                         </div>
-                                        <Button onClick={(event) => history.goBack(`/details/${movieid}`)}>Cancel</Button>
-                                        <Button onClick={handleSave}>Save</Button>
+                                        <Button sx={{marginRight: 1, width: 75}} variant="contained" onClick={(event) => history.goBack(`/details/${movieid}`)}>Cancel</Button>
+                                        <Button sx={{marginLeft: 1, width: 75}} variant="contained" onClick={handleSave}>Save</Button>
                                     </Card>
                         })}
-                        {/* <Card elevation={5} sx={{width: '50%', padding: 2}}>
-                            <TextField 
-                                sx={{margin: 2}} 
-                                label={movieDetails.title}
-                                variant="outlined" 
-                                type='text' 
-                                value={movieTitle}
-                                onChange={(event) => setMovieTitle(event.target.value)}
-                            />
-                            <TextField 
-                                sx={{margin: 2, minWidth: 500}} 
-                                label="Movie Description" 
-                                variant="outlined" 
-                                multiline 
-                                minRows="4" 
-                                type='text' 
-                                value={movieDescription} 
-                                onChange={(event) => setMovieDescription(event.target.value)}
-                            />
-                            <TextField 
-                                sx={{margin: 2, minWidth: 500}} 
-                                label="Movie Poster Link (max 120 characters!)" 
-                                variant="outlined" 
-                                type='text' 
-                                multiline 
-                                minRows="4"  
-                                value={posterLink} 
-                                onChange={(event) => setPosterLink(event.target.value)}
-                            />
-                            <div>
-                                <TextField 
-                                    sx={{margin: 2}} 
-                                    label="Select a movie genre from list" 
-                                    variant="outlined" 
-                                    type='text' 
-                                    value={genre}
-                                />
-                                <Button
-                                    onClick={handleClick}>List of Genres</Button>
-                                <Menu
-                                    anchorEl={anchorEl}
-                                    open={open}
-                                    onClose={handleClose}
-                                >
-                                    {allGenres.map(genre => {
-                                        return  <MenuItem key={genre.id} onClick={() => selectGenre(genre.id, genre.name)}>
-                                                    {genre.name}
-                                                </MenuItem>
-                                        
-                                    })}
-                                </Menu>
-                            </div>
-                            <Button onClick={(event) => history.goBack('/')}>Cancel</Button>
-                            <Button onClick={handleSave}>Save</Button>
-                        </Card> */}
+                       
                 </Container>
 
             </>

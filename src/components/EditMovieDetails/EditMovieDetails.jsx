@@ -33,8 +33,6 @@ const EditMovieDetails = () => {
          setAnchorEl(null);
      }
 
-     const allGenres = useSelector(store => store.genres);
-
      // new movie details variables
      const [genreID, setGenreID] = useState('');
      const [genre, setGenre] = useState('');
@@ -42,8 +40,10 @@ const EditMovieDetails = () => {
      const [movieDescription, setMovieDescription] = useState('');
      const [posterLink, setPosterLink] = useState('');
 
+     // data from reducers
      const movieDetails = useSelector(store => store.movieDetails);
      const movieGenres = useSelector(store => store.movieGenres);
+     const allGenres = useSelector(store => store.genres);
 
      const toDetails = (inputID) => {
         console.log('in toDetails');
@@ -60,8 +60,6 @@ const EditMovieDetails = () => {
          setGenre(inputName);
          setGenreID(inputID);
      } // end selectGenre
-
-
 
     return  <> 
                 <br />

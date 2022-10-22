@@ -97,7 +97,11 @@ const AddMovie = () => {
                             value={genre}
                         />
                         <Button
-                            onClick={handleClick}>List of Genres</Button>
+                            onClick={handleClick}
+                            variant="contained"
+                        >
+                                List of Genres
+                        </Button>
                         <Menu
                             anchorEl={anchorEl}
                             open={open}
@@ -111,8 +115,8 @@ const AddMovie = () => {
                             })}
                         </Menu>
                     </div>
-                    <Button onClick={(event) => history.goBack('/')}>Cancel</Button>
-                    <Button onClick={handleSave}>Save</Button>
+                    <Button sx={{marginRight: 1, width: 75}} variant="contained" onClick={(event) => history.goBack('/')}>Cancel</Button>
+                    <Button sx={{marginLeft: 1, width: 75}} variant="contained" onClick={handleSave}>Save</Button>
                 </Card>
             </Container>
         </>

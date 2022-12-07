@@ -10,8 +10,6 @@ In this moment, there is nothing worse than not knowing what to watch. You end u
 
 Thankfully, Blockduster can help! Blockduster provides a platform for keeping track of movies. Whether its a film you've watched, loved, and would watch again, or if it's one you heard about and want to remember, Blockduster keeps them all in one spot!
 
-To see the fully functional site, please visit: [Blockduster](https://guarded-wildwood-36322.herokuapp.com/#/)
-
 ## Screen Shots
 
 <img src="public/screenshots/movie-list.jpg" style="width: 400px;"/>
